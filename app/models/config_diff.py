@@ -1,12 +1,35 @@
-# /app/models/config_diff.py
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
+from sqlalchemy.sql import func
+
+from app.database import Base
 
 
-class ConfigDiff:
-    def __init__(self, id=None, device_id=None, old_snapshot_id=None, new_snapshot_id=None, diff_text=None, risk_level=None, created_at=None):
-        self.id = id
-        self.device_id = device_id
-        self.old_snapshot_id = old_snapshot_id
-        self.new_snapshot_id = new_snapshot_id
-        self.diff_text = diff_text
-        self.risk_level = risk_level
-        self.created_at = created_at
+class ConfigDiff(Base):
+    __tablename__ = "config_diffs"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    device_id = Column(Integer, ForeignKey("devices.id"), nullable=False)
+
+    old_snapshot_id = Column(
+        Integer,
+        ForeignKey("config_snapshots.id"),
+        nullable=False
+    )
+
+    new_snapshot_id = Column(
+        Integer,
+        ForeignKey("config_snapshots.id"),
+        nullable=False
+    )
+
+    diff_text = Column(Text, nullable=False)
+
+    risk_level = Column(String, nullable=False)
+
+    summary = Column(Text, nullable=False)
+
+    created_at = Column(
+        DateTime(timezone=True),
+        server_default=func.now()
+    )

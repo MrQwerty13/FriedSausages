@@ -1,50 +1,25 @@
-# models/alert.py
-from datetime import datetime
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
+from sqlalchemy.sql import func
+
+from app.database import Base
 
 
-class Alert:
-    def __init__(
-        self,
-        id: int,
-        device_id: int,
-        type: str,
-        severity: str,
-        message: str,
-        status: str,
-        created_at: datetime,
-    ):
-        self._id = id
-        self._device_id = device_id
-        self._type = type
-        self._severity = severity
-        self._message = message
-        self._status = status
-        self._created_at = created_at
+class Alert(Base):
+    __tablename__ = "alerts"
 
-    @property
-    def id(self) -> int:
-        return self._id
+    id = Column(Integer, primary_key=True, index=True)
 
-    @property
-    def device_id(self) -> int:
-        return self._device_id
+    device_id = Column(Integer, ForeignKey("devices.id"), nullable=False)
 
-    @property
-    def type(self) -> str:
-        return self._type
+    type = Column(String, nullable=False)
 
-    @property
-    def severity(self) -> str:
-        return self._severity
+    severity = Column(String, nullable=False)
 
-    @property
-    def message(self) -> str:
-        return self._message
+    message = Column(Text, nullable=False)
 
-    @property
-    def status(self) -> str:
-        return self._status
+    status = Column(String, default="open")
 
-    @property
-    def created_at(self) -> datetime:
-        return self._created_at
+    created_at = Column(
+        DateTime(timezone=True),
+        server_default=func.now()
+    )

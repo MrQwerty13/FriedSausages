@@ -1,63 +1,23 @@
-# models/device.py
-from datetime import datetime
-from typing import Optional
+from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.sql import func
+
+from app.database import Base
 
 
-class Device:
-    def __init__(
-        self,
-        id: int,
-        name: str,
-        ip_address: str,
-        vendor: str,
-        device_type: str,
-        os_version: Optional[str],
-        status: str,
-        created_at: datetime,
-        updated_at: datetime,
-    ):
-        self._id = id
-        self._name = name
-        self._ip_address = ip_address
-        self._vendor = vendor
-        self._device_type = device_type
-        self._os_version = os_version
-        self._status = status
-        self._created_at = created_at
-        self._updated_at = updated_at
+class Device(Base):
+    __tablename__ = "devices"
 
-    @property
-    def id(self) -> int:
-        return self._id
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    ip_address = Column(String, nullable=False, unique=True)
+    vendor = Column(String, nullable=False)
+    device_type = Column(String, nullable=False)
+    os_version = Column(String, nullable=False)
+    status = Column(String, default="offline")
 
-    @property
-    def name(self) -> str:
-        return self._name
-
-    @property
-    def ip_address(self) -> str:
-        return self._ip_address
-
-    @property
-    def vendor(self) -> str:
-        return self._vendor
-
-    @property
-    def device_type(self) -> str:
-        return self._device_type
-
-    @property
-    def os_version(self) -> Optional[str]:
-        return self._os_version
-
-    @property
-    def status(self) -> str:
-        return self._status
-
-    @property
-    def created_at(self) -> datetime:
-        return self._created_at
-
-    @property
-    def updated_at(self) -> datetime:
-        return self._updated_at
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        onupdate=func.now()
+    )
