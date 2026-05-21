@@ -1,85 +1,63 @@
-# /app/models/device.py
+# models/device.py
+from datetime import datetime
+from typing import Optional
+
 
 class Device:
-    def __init__(self):
-        self._id = None
-        self._name = None
-        self._ip_address = None
-        self._vendor = None
-        self._device_type = None
-        self._os_version = None
-        self._status = None
-        self._created_at = None
-        self._updated_at = None
+    def __init__(
+        self,
+        id: int,
+        name: str,
+        ip_address: str,
+        vendor: str,
+        device_type: str,
+        os_version: Optional[str],
+        status: str,
+        created_at: datetime,
+        updated_at: datetime,
+    ):
+        self._id = id
+        self._name = name
+        self._ip_address = ip_address
+        self._vendor = vendor
+        self._device_type = device_type
+        self._os_version = os_version
+        self._status = status
+        self._created_at = created_at
+        self._updated_at = updated_at
 
     @property
-    def id(self):
+    def id(self) -> int:
         return self._id
 
-    @id.setter
-    def id(self, value):
-        self._id = value
-
     @property
-    def name(self):
+    def name(self) -> str:
         return self._name
 
-    @name.setter
-    def name(self, value):
-        self._name = value
-
     @property
-    def ip_address(self):
+    def ip_address(self) -> str:
         return self._ip_address
 
-    @ip_address.setter
-    def ip_address(self, value):
-        self._ip_address = value
-
     @property
-    def vendor(self):
+    def vendor(self) -> str:
         return self._vendor
 
-    @vendor.setter
-    def vendor(self, value):
-        self._vendor = value
-
     @property
-    def device_type(self):
+    def device_type(self) -> str:
         return self._device_type
 
-    @device_type.setter
-    def device_type(self, value):
-        self._device_type = value
-
     @property
-    def os_version(self):
+    def os_version(self) -> Optional[str]:
         return self._os_version
 
-    @os_version.setter
-    def os_version(self, value):
-        self._os_version = value
-
     @property
-    def status(self):
+    def status(self) -> str:
         return self._status
 
-    @status.setter
-    def status(self, value):
-        self._status = value
-
     @property
-    def created_at(self):
+    def created_at(self) -> datetime:
         return self._created_at
 
-    @created_at.setter
-    def created_at(self, value):
-        self._created_at = value
-
     @property
-    def updated_at(self):
+    def updated_at(self) -> datetime:
         return self._updated_at
-
-    @updated_at.setter
-    def updated_at(self, value):
-        self._updated_at = value

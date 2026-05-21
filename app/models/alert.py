@@ -1,67 +1,50 @@
-# /app/models/alert.py
+# models/alert.py
+from datetime import datetime
+
 
 class Alert:
-    def __init__(self):
-        self._id = None
-        self._device_id = None
-        self._type = None
-        self._severity = None
-        self._message = None
-        self._status = None
-        self._created_at = None
+    def __init__(
+        self,
+        id: int,
+        device_id: int,
+        type: str,
+        severity: str,
+        message: str,
+        status: str,
+        created_at: datetime,
+    ):
+        self._id = id
+        self._device_id = device_id
+        self._type = type
+        self._severity = severity
+        self._message = message
+        self._status = status
+        self._created_at = created_at
 
     @property
-    def id(self):
+    def id(self) -> int:
         return self._id
 
-    @id.setter
-    def id(self, value):
-        self._id = value
-
     @property
-    def device_id(self):
+    def device_id(self) -> int:
         return self._device_id
 
-    @device_id.setter
-    def device_id(self, value):
-        self._device_id = value
-
     @property
-    def type(self):
+    def type(self) -> str:
         return self._type
 
-    @type.setter
-    def type(self, value):
-        self._type = value
-
     @property
-    def severity(self):
+    def severity(self) -> str:
         return self._severity
 
-    @severity.setter
-    def severity(self, value):
-        self._severity = value
-
     @property
-    def message(self):
+    def message(self) -> str:
         return self._message
 
-    @message.setter
-    def message(self, value):
-        self._message = value
-
     @property
-    def status(self):
+    def status(self) -> str:
         return self._status
 
-    @status.setter
-    def status(self, value):
-        self._status = value
-
     @property
-    def created_at(self):
+    def created_at(self) -> datetime:
         return self._created_at
-
-    @created_at.setter
-    def created_at(self, value):
-        self._created_at = value

@@ -1,67 +1,50 @@
-# /app/models/compliance_rule.py
+# models/compliance_rule.py
+from typing import Optional
+
 
 class ComplianceRule:
-    def __init__(self):
-        self._id = None
-        self._name = None
-        self._description = None
-        self._pattern = None
-        self._severity = None
-        self._recommendation = None
-        self._enabled = None
+    def __init__(
+        self,
+        id: int,
+        name: str,
+        description: Optional[str],
+        pattern: str,
+        severity: str,
+        recommendation: Optional[str],
+        enabled: bool,
+    ):
+        self._id = id
+        self._name = name
+        self._description = description
+        self._pattern = pattern
+        self._severity = severity
+        self._recommendation = recommendation
+        self._enabled = enabled
 
     @property
-    def id(self):
+    def id(self) -> int:
         return self._id
 
-    @id.setter
-    def id(self, value):
-        self._id = value
-
     @property
-    def name(self):
+    def name(self) -> str:
         return self._name
 
-    @name.setter
-    def name(self, value):
-        self._name = value
-
     @property
-    def description(self):
+    def description(self) -> Optional[str]:
         return self._description
 
-    @description.setter
-    def description(self, value):
-        self._description = value
-
     @property
-    def pattern(self):
+    def pattern(self) -> str:
         return self._pattern
 
-    @pattern.setter
-    def pattern(self, value):
-        self._pattern = value
-
     @property
-    def severity(self):
+    def severity(self) -> str:
         return self._severity
 
-    @severity.setter
-    def severity(self, value):
-        self._severity = value
-
     @property
-    def recommendation(self):
+    def recommendation(self) -> Optional[str]:
         return self._recommendation
 
-    @recommendation.setter
-    def recommendation(self, value):
-        self._recommendation = value
-
     @property
-    def enabled(self):
+    def enabled(self) -> bool:
         return self._enabled
-
-    @enabled.setter
-    def enabled(self, value):
-        self._enabled = value

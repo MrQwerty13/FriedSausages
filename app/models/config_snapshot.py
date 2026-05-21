@@ -1,76 +1,56 @@
-# /app/models/config_snapshot.py
+# models/config_snapshot.py
+from datetime import datetime
+
 
 class ConfigSnapshot:
-    def __init__(self):
-        self._id = None
-        self._device_id = None
-        self._version_number = None
-        self._config_text = None
-        self._config_hash = None
-        self._collected_by = None
-        self._collected_at = None
-        self._source = None
+    def __init__(
+        self,
+        id: int,
+        device_id: int,
+        version_number: str,
+        config_text: str,
+        config_hash: str,
+        collected_by: str,
+        collected_at: datetime,
+        source: str,
+    ):
+        self._id = id
+        self._device_id = device_id
+        self._version_number = version_number
+        self._config_text = config_text
+        self._config_hash = config_hash
+        self._collected_by = collected_by
+        self._collected_at = collected_at
+        self._source = source
 
     @property
-    def id(self):
+    def id(self) -> int:
         return self._id
 
-    @id.setter
-    def id(self, value):
-        self._id = value
-
     @property
-    def device_id(self):
+    def device_id(self) -> int:
         return self._device_id
 
-    @device_id.setter
-    def device_id(self, value):
-        self._device_id = value
-
     @property
-    def version_number(self):
+    def version_number(self) -> str:
         return self._version_number
 
-    @version_number.setter
-    def version_number(self, value):
-        self._version_number = value
-
     @property
-    def config_text(self):
+    def config_text(self) -> str:
         return self._config_text
 
-    @config_text.setter
-    def config_text(self, value):
-        self._config_text = value
-
     @property
-    def config_hash(self):
+    def config_hash(self) -> str:
         return self._config_hash
 
-    @config_hash.setter
-    def config_hash(self, value):
-        self._config_hash = value
-
     @property
-    def collected_by(self):
+    def collected_by(self) -> str:
         return self._collected_by
 
-    @collected_by.setter
-    def collected_by(self, value):
-        self._collected_by = value
-
     @property
-    def collected_at(self):
+    def collected_at(self) -> datetime:
         return self._collected_at
 
-    @collected_at.setter
-    def collected_at(self, value):
-        self._collected_at = value
-
     @property
-    def source(self):
+    def source(self) -> str:
         return self._source
-
-    @source.setter
-    def source(self, value):
-        self._source = value
