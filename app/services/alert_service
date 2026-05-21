@@ -1,0 +1,42 @@
+from dataclasses import dataclass
+from datetime import datetime
+
+
+@dataclass
+class Alert:
+    type: str
+    severity: str
+    message: str
+    status: str
+    created_at: str
+
+
+class AlertService:
+    @staticmethod
+    def create_from_diff(diff_result):
+        if diff_result.risk_level in ["high", "critical"]:
+            return Alert(
+                type="config_change",
+                severity=diff_result.risk_level,
+                message=f"Обнаружено опасное изменение конфигурации: {diff_result.summary}",
+                status="new",
+                created_at=datetime.utcnow().isoformat()
+            )
+
+        return None
+
+    @staticmethod
+    def create_from_compliance(compliance_results):
+        alerts = []
+
+        for result in compliance_results:
+            if result.status == "failed" and result.severity in ["high", "critical"]:
+                alerts.append(Alert(
+                    type="compliance_failed",
+                    severity=result.severity,
+                    message=f"Нарушение правила: {result.rule}",
+                    status="new",
+                    created_at=datetime.utcnow().isoformat()
+                ))
+
+        return alerts
