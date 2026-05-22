@@ -1,0 +1,60 @@
+# Справочник поддерживаемых типов устройств. Загружается приложением
+# при старте и используется в UI для подписей и в seed_demo.py.
+#
+# Коды типов должны совпадать со значениями enum DeviceType в
+# backend/app/models/device.py — не редактируй один без другого.
+
+- code: cisco_ios
+  vendor: Cisco
+  display_name: Cisco IOS
+  default_port: 22
+  protocols: [ssh, telnet]
+  report_types: [running-config, startup-config, version, interfaces, users]
+  notes: |
+    Эмулируется через GNS3 IOSv-L2 или Cisco CML.
+    Для compliance используется стандарт cis_cisco_ios_lite.
+
+- code: mikrotik_routeros
+  vendor: Mikrotik
+  display_name: Mikrotik RouterOS
+  default_port: 22
+  protocols: [ssh]
+  report_types: [config, system-resource, users, interfaces]
+  notes: |
+    Тестируется на CHR (Cloud Hosted Router) — бесплатный образ.
+
+- code: eltex_mes
+  vendor: Eltex
+  display_name: Eltex MES
+  default_port: 22
+  protocols: [ssh, telnet]
+  report_types: [running-config, version, users]
+  notes: |
+    Реализация плагина пока заглушка (нужен реальный коммутатор).
+
+- code: linux_host
+  vendor: Linux
+  display_name: Linux host
+  default_port: 22
+  protocols: [ssh]
+  report_types: [uname, passwd, iptables, interfaces]
+  notes: |
+    Универсальный SSH-таргет, тестируется через linuxserver/openssh-server.
+
+- code: windows_host
+  vendor: Microsoft
+  display_name: Windows host
+  default_port: 5985
+  protocols: [winrm]
+  report_types: [system, users, services]
+  notes: |
+    Опциональный; требует Windows-агента (вне MVP).
+
+- code: generic_ssh
+  vendor: Generic
+  display_name: Generic SSH device
+  default_port: 22
+  protocols: [ssh]
+  report_types: [raw-config]
+  notes: |
+    Fallback для устройств без специализированного плагина.

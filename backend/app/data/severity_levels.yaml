@@ -1,0 +1,22 @@
+# Уровни критичности — используются и в событиях, и в требованиях, и в уязвимостях.
+# Коды совпадают с enum'ами в моделях.
+
+- code: low
+  display_name_ru: Низкий
+  color_hex: "#1F75CB"
+  numeric_weight: 1
+
+- code: medium
+  display_name_ru: Средний
+  color_hex: "#F0A400"
+  numeric_weight: 2
+
+- code: high
+  display_name_ru: Высокий
+  color_hex: "#E47C0A"
+  numeric_weight: 3
+
+- code: critical
+  display_name_ru: Критический
+  color_hex: "#C9302C"
+  numeric_weight: 4

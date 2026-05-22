@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Упрощённый стандарт безопасности CIS Cisco IOS, используется в прототипе
+  Efros CI для демонстрации проверок compliance.
+
+  Загружается командой `python -m app.scripts.import_standard` с указанием
+  пути к этому файлу через аргумент file.
+
+  Источник правил: https://www.cisecurity.org/benchmark/cisco (адаптировано).
+  Это не точная копия CIS и не аудит-сертифицированный набор, а только
+  демонстрация формата.
+-->
+<standard
+    name="CIS Cisco IOS Lite"
+    device_type="cisco_ios"
+    is_builtin="true"
+    description="Упрощённый набор требований CIS для Cisco IOS. Демонстрационный стандарт прототипа.">
+
+  <!-- AAA -->
+  <requirement
+      name="Включена локальная AAA"
+      category="Локальная аутентификация"
+      report_type="running-config"
+      pattern="^aaa new-model$"
+      must_match="true"
+      severity="high"
+      description="Команда `aaa new-model` должна быть активна для централизованного контроля доступа."/>
+
+  <requirement
+      name="Шифрование паролей включено"
+      category="Хранение учётных данных"
+      report_type="running-config"
+      pattern="^service password-encryption$"
+      must_match="true"
+      severity="medium"
+      description="Должна быть включена команда `service password-encryption`."/>
+
+  <requirement
+      name="Минимальная длина пароля не меньше 10"
+      category="Парольная политика"
+      report_type="running-config"
+      pattern="^security passwords min-length\s+(?:1[0-9]|[2-9][0-9])"
+      must_match="true"
+      severity="high"
+      description="`security passwords min-length` должен быть установлен в значение 10 и более."/>
+
+  <!-- Доступ к устройству -->
+  <requirement
+      name="VTY использует только SSH"
+      category="Управляющий доступ"
+      report_type="running-config"
+      pattern="^\s*transport input\s+(?!ssh\s*$)"
+      must_match="false"
+      severity="high"
+      description="На строках vty не должно быть транспорта telnet — только ssh."/>
+
+  <requirement
+      name="HTTP-сервер отключён"
+      category="Управляющий доступ"
+      report_type="running-config"
+      pattern="^no ip http server$"
+      must_match="true"
+      severity="medium"
+      description="Старый незашифрованный HTTP-сервер должен быть выключен."/>
+
+  <requirement
+      name="HTTPS-сервер отключён, если не используется"
+      category="Управляющий доступ"
+      report_type="running-config"
+      pattern="^no ip http secure-server$"
+      must_match="true"
+      severity="low"
+      description="Если веб-интерфейс не используется, выключите и HTTPS."/>
+
+  <!-- SNMP -->
+  <requirement
+      name="SNMP community public/private отсутствует"
+      category="SNMP"
+      report_type="running-config"
+      pattern="snmp-server community\s+(?:public|private)\b"
+      must_match="false"
+      severity="critical"
+      description="Дефолтные communities public/private — частая причина компрометации."/>
+
+  <!-- Логирование -->
+  <requirement
+      name="Logging buffered включён"
+      category="Журналирование"
+      report_type="running-config"
+      pattern="^logging buffered \d+"
+      must_match="true"
+      severity="low"
+      description="Буферизованное логирование облегчает диагностику."/>
+
+  <requirement
+      name="Logging хост указан"
+      category="Журналирование"
+      report_type="running-config"
+      pattern="^logging host\s+\S+"
+      must_match="true"
+      severity="medium"
+      description="События должны отправляться на удалённый syslog."/>
+
+  <!-- Прочее -->
+  <requirement
+      name="CDP отключён глобально"
+      category="Прочее"
+      report_type="running-config"
+      pattern="^no cdp run$"
+      must_match="true"
+      severity="low"
+      description="Cisco Discovery Protocol может раскрывать топологию."/>
+
+</standard>
