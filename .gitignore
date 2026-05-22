@@ -3,3 +3,19 @@ __pycache__/
 .venv/
 venv/
 .DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.venv/
+venv/
+
+# Local environment
+.env
+.env.local
+
+# Archive volume (если делаешь локальный бэкап в репо)
+backups/
+archive/
